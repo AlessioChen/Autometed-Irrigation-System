@@ -1,4 +1,7 @@
 from django.shortcuts import render
+
+from . scripts.motor_test1 import * 
+import time
 # Create your views here.
 
 
@@ -9,9 +12,10 @@ def index(request):
 
     if motor_status == 'off' :  #turn on the motor 
         request.session['motor_status'] = 'on'
+        turn_on()
     else: 
         request.session['motor_status'] = 'off'
-
+        turn_off()
     
     context = {
         'motor_status': motor_status,
