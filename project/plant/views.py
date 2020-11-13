@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-# Create your views here.
+#from .scripts import motor
+#from .scripts import GrowHumiditySensor
+#form .scripts import SoilHumiditySensor
 
 
 def index(request):
@@ -14,9 +16,10 @@ def update_motor(request):
 
     if motor_status == 'OFF' :  #turn on the motor 
         request.session['motor_status'] = 'ON'
-        
+        #motor.turn_on()
     else: 
         request.session['motor_status'] = 'OFF'
+        #motor.turn_off()
 
     
     context = {
@@ -54,9 +57,9 @@ def update_sensors(request):
 
 
 def get_sensor_1_value(value):
- 
+    # return GrowHumiditySensor.get_value()
     return value + 10
 
 def get_sensor_2_value(value):
-
+    # return SoilHumiditySensor.get_value()
     return value + 2 
