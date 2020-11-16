@@ -1,18 +1,66 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
     <title>Document</title>
 </head>
 <body>
 
-    <form action ='#', method= 'POST'>
-        {% csrf_token %}
-        <input type ='submit' value= 'on/off'>
-    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- .......................START MOTOR TEST--------------------------------->
+     <button id ='motorButton' type ='Button'>ON/OFF</button>
+         
+    <p id ='motor_status'>ON</p>
+    
 
 
-    {{motor_status}}
+    <script>
+       $('#motorButton').click(function() { 
+            $.ajax({
+                url: "{% url 'motor_update' %}",
+                success: function (response) {
+                    $('#motor_status').text(response['motor_status']);
+                  }
+            });
+         });
+    </script>
+    <!-- .......................END MOTOR TEST--------------------------------->
+
+    <!---------------------------------------START SENSOR VALUES TEST------------------------------------------->
+    <p id = 'sensor_1'> Sensor_1 value </p>
+    <p id = 'sensor_2'> Sensor_2 value </p>
+ 
+
+        
+    <script>
+        function updateSensors(){
+            $.ajax ({
+                url: "{% url 'update_sensors' %}",
+                success: function(response){
+                value1 = JSON.parse(response['sensor1_value']);
+                value2 = JSON.parse(response['sensor2_value']);
+                $('#sensor_1').text(value1);
+                $('#sensor_2').text(value2);
+                }
+            });
+            setTimeout(updateSensors, 1000)
+        }
+
+        $(document).ready(function() {
+        // run the first time; all subsequent calls will take care of themselves
+        setTimeout(updateSensors, 1000);
+    });
+    </script>
+
+     <!----------------------------------------END SENSOR VALUES TEST------------------------------------------->
+
+
 </body>
 </html>
