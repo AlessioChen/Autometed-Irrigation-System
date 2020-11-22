@@ -34,8 +34,9 @@
     <!-- .......................END MOTOR TEST--------------------------------->
 
     <!---------------------------------------START SENSOR VALUES TEST------------------------------------------->
-    <p id = 'sensor_1'> Sensor_1 value </p>
-    <p id = 'sensor_2'> Sensor_2 value </p>
+    <p id = 'air_humidity'> air_humidity value </p>
+    <p id = 'soil_humidity'> soil_humidity value </p>
+    <p id = 'air_temperature'> air_temperature value </p>
  
 
         
@@ -44,10 +45,12 @@
             $.ajax ({
                 url: "{% url 'update_sensors' %}",
                 success: function(response){
-                value1 = JSON.parse(response['sensor1_value']);
-                value2 = JSON.parse(response['sensor2_value']);
-                $('#sensor_1').text(value1);
-                $('#sensor_2').text(value2);
+                value1 = JSON.parse(response['air_humidity']);
+                value2 = JSON.parse(response['soil_humidity']);
+                value3 = JSON.parse(response['air_temperature']);
+                $('#air_humidity').text(value1);
+                $('#soil_humidity').text(value2);
+                $('#air_temperature').text(value3);
                 }
             });
             setTimeout(updateSensors, 1000)
