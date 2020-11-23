@@ -13,3 +13,6 @@ def get_air_temperature():
     # print("\nTemperature: %0.1f C" % sensor.temperature)
     # print("Humidity: %0.1f %%" % sensor.relative_humidity)
     #     time.sleep(1)
+
+def get_air_humidity():
+    return sensor.relative_humidity
