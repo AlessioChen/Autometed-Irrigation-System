@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-#from .scripts import motor
-#from .scripts import GrowHumiditySensor
-#from .scripts import SoilHumiditySensor
+from .scripts import motor
+from .scripts import GrowHumiditySensor
+from .scripts import SoilHumiditySensor
+from .scipts import airTemperatureSensor
+
 
 
 def index(request):
@@ -35,16 +37,9 @@ def update_motor(request):
 def update_sensors(request):
     
     if request.is_ajax:
-        # Get a session value, setting a default if it is not present (0)   
-        t = request.session.get('air_humidity', 0)
-        t2 = request.session.get('soil_umidity', 0)
-
-        air_humidity = get_air_humidity(t)
-        soil_umidity = get_soil_humidity(t2)
-        air_temperature = get_air_temperature(t)
-
-        request.session['air_humhidity'] = air_humidity
-        request.session['soil_umidity'] = soil_umidity
+        air_humidity = GrowHumiditySensor.get_value()
+        soil_umidity = SoilHumiditySensor.get_value()
+        air_temperature = SoilHumiditySensor.get_value()
 
 
         context = {
@@ -59,15 +54,4 @@ def update_sensors(request):
     
 
 
-def get_air_humidity(value):
-    # return GrowHumiditySensor.get_value()
-    return value + 10
-
-def get_soil_humidity(value):
-    # return SoilHumiditySensor.get_value()
-    return value + 2 
-
-def get_air_temperature(value):
-    
-    return value + 5
 
