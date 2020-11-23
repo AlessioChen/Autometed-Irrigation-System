@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
         <meta charset="UTF-8">
         <title>Leaf</title>
@@ -28,7 +29,7 @@
 
     <body>
 
-      
+
         <nav class="navbar navbar-fixed-top">
             <div class="container">
                 <div class="row">
@@ -92,49 +93,45 @@
 
 
 <script>
-  function updateSensors(){
-      $.ajax ({
-          url: "{% url 'update_sensors' %}",
-          success: function(response){
-          value1 = JSON.parse(response['air_humidity']);
-          value2 = JSON.parse(response['soil_humidity']);
-          value3 = JSON.parse(response['air_temperature']);
-          console.log(value1);
-          console.log(value2);
-          console.log(value3);
-          }
-      });
-      //setTimeout(updateSensors, 1000)
-  }
+    function updateSensors() {
+        $.ajax({
+            url: "{% url 'update_sensors' %}",
+            success: function(response) {
+                value1 = JSON.parse(response['air_humidity']);
+                value2 = JSON.parse(response['soil_humidity']);
+                value3 = JSON.parse(response['air_temperature']);
+                var ctx = document.getElementById('SHChart').getContext('2d');
+                var SHChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        datasets: [{
+                            label: '# of Votes',
+                            data: [value2, 100 - value2],
+                            backgroundColor: [
+                                'rgba(255, 204, 102, 1)',
+                                'rgba(255, 204, 102, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 204, 102, 1)',
+                                'rgba(255, 204, 102, 0.2)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {}
+                });
+            }
+        });
+        //setTimeout(updateSensors, 1000)
+    }
 
-  $(document).ready(function() {
-  // run the first time; all subsequent calls will take care of themselves
-  //setTimeout(updateSensors, 1000);
-});
+    $(document).ready(function() {
+        // run the first time; all subsequent calls will take care of themselves
+        setTimeout(updateSensors, 1000);
+    });
 </script>
 
 <script>
-    var ctx = document.getElementById('SHChart').getContext('2d');
-    var SHChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            datasets: [{
-                label: '# of Votes',
-                data: [60, 40],
-                backgroundColor: [
-                    'rgba(255, 204, 102, 1)',
-                    'rgba(255, 204, 102, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 204, 102, 1)',
-                    'rgba(255, 204, 102, 0.2)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {}
-    });
-
 </script>
 
 
