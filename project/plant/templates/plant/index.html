@@ -1,66 +1,209 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-
-    <title>Document</title>
-</head>
-<body>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
-    <!-- .......................START MOTOR TEST--------------------------------->
-     <button id ='motorButton' type ='Button'>ON/OFF</button>
-         
-    <p id ='motor_status'>ON</p>
-    
+    <head>
+        <meta charset="UTF-8">
+        <title>Leaf</title>
+        <!-------------------------------------- START OUR CSS'S ANS JS'S --------------------------------------------------------------->
+        <link rel="stylesheet" href="{% static 'plant/style.css' %}">
+        <!-------------------------------------- END OUR CSS'S ANS JS'S--------------------------------------------------------------->
 
 
-    <script>
-       $('#motorButton').click(function() { 
-            $.ajax({
-                url: "{% url 'motor_update' %}",
-                success: function (response) {
-                    $('#motor_status').text(response['motor_status']);
-                  }
-            });
-         });
-    </script>
-    <!-- .......................END MOTOR TEST--------------------------------->
+        <!---------------------------------------------------------START BOOTSTRAP V3.3.7------------------->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <!---------------------------------------START SENSOR VALUES TEST------------------------------------------->
-    <p id = 'sensor_1'> Sensor_1 value </p>
-    <p id = 'sensor_2'> Sensor_2 value </p>
- 
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-        
-    <script>
-        function updateSensors(){
-            $.ajax ({
-                url: "{% url 'update_sensors' %}",
-                success: function(response){
-                value1 = JSON.parse(response['sensor1_value']);
-                value2 = JSON.parse(response['sensor2_value']);
-                $('#sensor_1').text(value1);
-                $('#sensor_2').text(value2);
-                }
-            });
-            setTimeout(updateSensors, 1000)
-        }
-
-        $(document).ready(function() {
-        // run the first time; all subsequent calls will take care of themselves
-        setTimeout(updateSensors, 1000);
-    });
-    </script>
-
-     <!----------------------------------------END SENSOR VALUES TEST------------------------------------------->
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <!---------------------------------------------------------END BOOTSTRAP V3.3.7------------------->
 
 
-</body>
+        <!---------------------------------------------START CHART JS ---------------------------------------->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+        <!---------------------------------------------END CHART JS ---------------------------------------->
+    </head>
+
+    <body>
+
+      
+        <nav class="navbar navbar-fixed-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-4">
+                    </div>
+                    <div class="col-xs-4">
+                        <a class="navbar-brand center" href="#"><b>Leaf</b></a> %TODO center title
+                    </div>
+                    <div class="col-xs-4">
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-xs-6">
+                    <h3>SOIL HUMIDITY</h3>
+                    <canvas id="SHChart" width="400" height="400"></canvas>
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <h3>ENGINE ACTIVITY</h3>
+                    <canvas id="EAChart" width="400" height="400"></canvas>
+
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <h3>AIR HUMIDITY</h3>
+                    <canvas id="AHChart" width="400" height="400"></canvas>
+
+                </div>
+                <div class="col-md-3 col-xs-6">
+                    <h3>AIR TEMPERATURE</h3>
+                    <canvas id="ATChart" width="400" height="400"></canvas>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <h3>GRAFICO CARTESIANO</h3>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing
+                elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+                esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </div>
+
+            <div class="col-md-4">
+                <div class="col-md-8">
+                    <h3>GRAFICO A TORTA</h3>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                    in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur
+                    adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+                    in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </div>
+            </div>
+        </div>
+    </body>
+
 </html>
+
+
+<script>
+  function updateSensors(){
+      $.ajax ({
+          url: "{% url 'update_sensors' %}",
+          success: function(response){
+          value1 = JSON.parse(response['air_humidity']);
+          value2 = JSON.parse(response['soil_humidity']);
+          value3 = JSON.parse(response['air_temperature']);
+          console.log(value1);
+          console.log(value2);
+          console.log(value3);
+          }
+      });
+      //setTimeout(updateSensors, 1000)
+  }
+
+  $(document).ready(function() {
+  // run the first time; all subsequent calls will take care of themselves
+  //setTimeout(updateSensors, 1000);
+});
+</script>
+
+<script>
+    var ctx = document.getElementById('SHChart').getContext('2d');
+    var SHChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                label: '# of Votes',
+                data: [60, 40],
+                backgroundColor: [
+                    'rgba(255, 204, 102, 1)',
+                    'rgba(255, 204, 102, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 204, 102, 1)',
+                    'rgba(255, 204, 102, 0.2)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {}
+    });
+
+</script>
+
+
+<script>
+    var ctx = document.getElementById('EAChart').getContext('2d');
+    var EAChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                label: '# of Votes',
+                data: [30, 70],
+                backgroundColor: [
+                    'rgba(100, 255, 100, 1)',
+                    'rgba(100, 255, 100, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(100, 255, 100, 1)',
+                    'rgba(100, 255, 100, 0.2)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {}
+    });
+</script>
+
+<script>
+    var ctx = document.getElementById('AHChart').getContext('2d');
+    var AHChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                label: '# of Votes',
+                data: [40, 60],
+                backgroundColor: [
+                    'rgba(102, 102, 255, 1)',
+                    'rgba(102, 102, 255, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(102, 102, 255, 1)',
+                    'rgba(102, 102, 255, 0.2)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {}
+    });
+</script>
+
+
+<script>
+    var ctx = document.getElementById('ATChart').getContext('2d');
+    var ATChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                label: '# of Votes',
+                data: [20, 80],
+                backgroundColor: [
+                    'rgba(255, 102, 102, 1)',
+                    'rgba(255, 102, 102, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 102, 102, 1)',
+                    'rgba(255, 102, 102, 0.2)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {}
+    });
+</script>
