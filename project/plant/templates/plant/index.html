@@ -98,14 +98,15 @@
         $.ajax({
             url: "{% url 'update_sensors' %}",
             success: function(response) {
-                air_humidity = response['air_humidity'];
-                soil_humidity = response['soil_humidity'];
-                air_temperature = response['air_temperature'];
+                //JSON.parse converts strings into javascripts object
+                air_humidity = JSON.parse(['air_humidity']);
+                soil_humidity = JSON.parse(['soil_humidity']);
+                air_temperature = JSON.parse(['air_temperature']);
 
 
                 updateData(SHChart, [soil_humidity, 100 - soil_humidity]);
                 updateData(AHChart, [air_humidity, 100 - air_humidity]);
-                updateData(ATChart, [air_humidity, 40 - air_humidity]);
+                updateData(ATChart, [air_temperature, 40 - air_humidity]);
 
 
             }
