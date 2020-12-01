@@ -3,17 +3,16 @@ from django.core.wsgi import get_wsgi_application
 from django.utils import timezone
 import time 
 import os
-from plant.models import *
-from plant.scripts import AirSensor, SoilHumiditySensor
+
+#from plant.scripts import AirSensor, SoilHumiditySensor
 
 
-#----------------- This lines are for allowing to make querys with .py----------------#
+#----------------- These lines are for allowing to make querys with .py----------------#
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
 application = get_wsgi_application()
 #----------------- --------------------------------------------------------------------#
 
-
-
+from plant.models import *
 osservation = Plant()
 
 # Every minute it read the sensord and add data into database 
