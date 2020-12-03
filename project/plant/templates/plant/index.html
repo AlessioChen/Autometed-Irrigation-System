@@ -1,12 +1,13 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
         <meta charset="UTF-8">
         <title>Leaf</title>
         <!-------------------------------------- START OUR CSS'S ANS JS'S --------------------------------------------------------------->
         <link rel="stylesheet" href="{% static 'plant/style.css' %}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <!-------------------------------------- END OUR CSS'S ANS JS'S--------------------------------------------------------------->
 
 
@@ -29,7 +30,7 @@
 
     <body>
 
-      
+
         <nav class="navbar navbar-fixed-top">
             <div class="container">
                 <div class="row">
@@ -93,65 +94,40 @@
 
 
 <script>
-  function updateSensors(){
-      $.ajax ({
-          url: "{% url 'update_sensors' %}",
-          success: function(response){
-          value1 = response['air_humidity'];
-          value2 = response['soil_humidity'];
-          value3 = response['air_temperature'];
-       
-       
-       var ctx = document.getElementById('ATChart').getContext('2d');
-        var ATChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            datasets: [{
-                label: '# of Votes',
-                data: [value3, 100-value3],
-                backgroundColor: [
-                    'rgba(255, 102, 102, 1)',
-                    'rgba(255, 102, 102, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 102, 102, 1)',
-                    'rgba(255, 102, 102, 0.2)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {}
-    });
-             var ctx = document.getElementById('AHChart').getContext('2d');
-    var AHChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            datasets: [{
-                label: '# of Votes',
-                data: [value1, 100-value1],
-                backgroundColor: [
-                    'rgba(102, 102, 255, 1)',
-                    'rgba(102, 102, 255, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(102, 102, 255, 1)',
-                    'rgba(102, 102, 255, 0.2)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {}
-    });
-          }
-      });
-      setTimeout(updateSensors, 60000)
-  }
+    function updateSensors() {
+        $.ajax({
+            url: "{% url 'update_sensors' %}",
+            success: function(response) {
+                //JSON.parse converts strings into javascripts object
+                air_humidity = JSON.parse(['air_humidity']);
+                soil_humidity = JSON.parse(['soil_humidity']);
+                air_temperature = JSON.parse(['air_temperature']);
 
-  $(document).ready(function() {
-  // run the first time; all subsequent calls will take care of themselves
-  setTimeout(updateSensors, 1000);
-});
+
+                updateData(SHChart, [soil_humidity, 100 - soil_humidity]);
+                updateData(AHChart, [air_humidity, 100 - air_humidity]);
+                updateData(ATChart, [air_temperature, 40 - air_humidity]);
+
+
+            }
+        });
+        setTimeout(updateSensors, 1000);
+    }
+
+    $(document).ready(function() {
+        // run the first time; all subsequent calls will take care of themselves
+        setTimeout(updateSensors, 1000);
+    });
 </script>
+
+<script>
+    function updateData(chart, data) {
+        chart.data.datasets[0].data = data;
+        chart.update();
+
+    };
+</script>
+
 
 <script>
     var ctx = document.getElementById('SHChart').getContext('2d');
@@ -174,7 +150,6 @@
         },
         options: {}
     });
-
 </script>
 
 
@@ -201,3 +176,51 @@
     });
 </script>
 
+
+<script>
+    var ctx = document.getElementById('AHChart').getContext('2d');
+    var AHChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                label: '# of Votes',
+                data: [40, 60],
+                backgroundColor: [
+                    'rgba(102, 102, 255, 1)',
+                    'rgba(102, 102, 255, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(102, 102, 255, 1)',
+                    'rgba(102, 102, 255, 0.2)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {}
+    });
+</script>
+
+
+
+<script>
+    var ctx = document.getElementById('ATChart').getContext('2d');
+    var ATChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                label: '# of Votes',
+                data: [20, 80],
+                backgroundColor: [
+                    'rgba(255, 102, 102, 1)',
+                    'rgba(255, 102, 102, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 102, 102, 1)',
+                    'rgba(255, 102, 102, 0.2)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {}
+    });
+</script>
