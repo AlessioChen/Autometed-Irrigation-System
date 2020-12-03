@@ -1,0 +1,11 @@
+body{
+  padding-top: 100px;
+}
+
+.navbar{
+  background-color: rgba(0, 230, 184, 1);
+}
+
+.navbar-brand{
+  color: rgba(255, 179, 102, 1);
+}
