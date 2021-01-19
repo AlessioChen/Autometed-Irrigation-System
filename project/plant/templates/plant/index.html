@@ -1,97 +1,36 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'plant/base.html' %} 
+{% block content %} 
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Leaf</title>
-        <!-------------------------------------- START OUR CSS'S ANS JS'S --------------------------------------------------------------->
-        <link rel="stylesheet" href="{% static 'plant/style.css' %}">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <!-------------------------------------- END OUR CSS'S ANS JS'S--------------------------------------------------------------->
-
-
-        <!---------------------------------------------------------START BOOTSTRAP V3.3.7------------------->
-        <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-        <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-        <!---------------------------------------------------------END BOOTSTRAP V3.3.7------------------->
-
-
-        <!---------------------------------------------START CHART JS ---------------------------------------->
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-        <!---------------------------------------------END CHART JS ---------------------------------------->
-    </head>
-
-    <body>
-
-
-        <nav class="navbar navbar-fixed-top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-4">
-                    </div>
-                    <div class="col-xs-4">
-                        <a class="navbar-brand center" href="#"><b>Leaf</b></a> %TODO center title
-                    </div>
-                    <div class="col-xs-4">
-                    </div>
-                </div>
-            </div>
-        </nav>
-
-
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-xs-6">
-                    <h3>SOIL HUMIDITY</h3>
-                    <canvas id="SHChart" width="400" height="400"></canvas>
-                </div>
-                <div class="col-md-3 col-xs-6">
-                    <h3>ENGINE ACTIVITY</h3>
-                    <canvas id="EAChart" width="400" height="400"></canvas>
-
-                </div>
-                <div class="col-md-3 col-xs-6">
-                    <h3>AIR HUMIDITY</h3>
-                    <canvas id="AHChart" width="400" height="400"></canvas>
-
-                </div>
-                <div class="col-md-3 col-xs-6">
-                    <h3>AIR TEMPERATURE</h3>
-                    <canvas id="ATChart" width="400" height="400"></canvas>
-                </div>
-            </div>
-
-            <hr>
-
-            <div class="row">
-                <h3>GRAFICO CARTESIANO</h3>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing
-                elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
-
-            <div class="col-md-4">
-                <div class="col-md-8">
-                    <h3>GRAFICO A TORTA</h3>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                    in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur
-                    adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                    in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </div>
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 col-xs-6">
+            <h3>SOIL HUMIDITY</h3>
+            <canvas id="SHChart" width="400" height="400"></canvas>
         </div>
-    </body>
+        <div class="col-md-3 col-xs-6">
+            <h3>ENGINE ACTIVITY</h3>
+            <canvas id="EAChart" width="400" height="400"></canvas>
 
-</html>
+        </div>
+        <div class="col-md-3 col-xs-6">
+            <h3>AIR HUMIDITY</h3>
+            <canvas id="AHChart" width="400" height="400"></canvas>
 
+        </div>
+        <div class="col-md-3 col-xs-6">
+            <h3>AIR TEMPERATURE</h3>
+            <canvas id="ATChart" width="400" height="400"></canvas>
+        </div>
+    </div>
+
+    <hr>
+
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
 
 <script>
     function updateSensors() {
@@ -116,7 +55,7 @@
 
     $(document).ready(function() {
         // run the first time; all subsequent calls will take care of themselves
-        setTimeout(updateSensors, 1000);
+        //setTimeout(updateSensors, 1000);
     });
 </script>
 
@@ -224,3 +163,4 @@
         options: {}
     });
 </script>
+{% endblock %}
