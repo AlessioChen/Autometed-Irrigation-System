@@ -1,14 +1,20 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 #from .scripts import motor
-from .scripts import SoilHumiditySensor
-from .scripts import AirSensor
+# from .scripts import SoilHumiditySensor
+# from .scripts import AirSensor
 
 
 
 def index(request):
 
     return render(request, 'plant/index.html', {})
+
+
+
+def graphics(request):
+
+    return render(request, 'plant/graphics.html', {})
 
 
 def update_motor(request):

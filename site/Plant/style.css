@@ -3,7 +3,7 @@ body{
 }
 
 .navbar{
-  background-color: rgba(0, 230, 184, 1);
+  background-color: rgb(230, 142, 0);
 }
 
 .navbar-brand{
@@ -11,3 +11,17 @@ body{
 
   
 }
+
+.dropdown-menu form button {
+  border:0;
+  padding: 3px 20px;
+  color: #333;
+  width:100%;
+  text-align:left;
+}
+.dropdown-menu form button:hover {
+  color:black;
+  text-decoration:none;
+  background-color:#f5f5f5;
+}
+
