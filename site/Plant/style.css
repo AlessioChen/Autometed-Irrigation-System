@@ -3,15 +3,11 @@ body{
 }
 
 .navbar{
-<<<<<<< HEAD
-  background-color: rgb(230, 123, 0);
-=======
-  background-color: rgb(230, 142, 0);
->>>>>>> 9bbd61e2650c4fd11b0ba975f031384c45b8fe54
+  background-color: rgb(255, 153, 0);
 }
 
 .navbar-brand{
-  color: rgba(255, 179, 102, 1);
+  color: rgb(255, 245, 102);
 }
 
 .flex-container{
@@ -49,9 +45,3 @@ body{
   top: 60%;
   left: 15%;
 }
-
-<<<<<<< HEAD
-=======
-  
-
->>>>>>> 9bbd61e2650c4fd11b0ba975f031384c45b8fe54
