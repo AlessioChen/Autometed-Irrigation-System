@@ -1,35 +1,36 @@
 {%extends 'plant/base.html'%}
 
-{% block content %} 
+{% block content %}
 
-    <style>
-        canvas {
-            -moz-user-select: none;
-            -webkit-user-select: none;
-            -ms-user-select: none;
-        }
-    </style>
 
-    <div style="width:60%; height: 60%;">
-        <canvas id="canvas"></canvas>
-    </div>
-    <br>
-    <br>
-    <button id="randomizeData">Randomize Data</button>
-    <button id="addDataset">Add Dataset</button>
-    <button id="removeDataset">Remove Dataset</button>
-    <button id="addData">Add Data</button>
-    <button id="removeData">Remove Data</button>
+<style>
+    canvas {
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+</style>
 
-    <button id='sensor 1'> Sensor 1 </button>
-    <button id='sensor 2'> Sensor 2 </button>
-    <button id='sensor 3'> Sensor 3 </button> 
-    {% endblock %}
+<div style="width:60%; height: 60%;">
+    <canvas id="canvas"></canvas>
+</div>
+<br>
+<br>
+<button id="randomizeData">Randomize Data</button>
+<button id="addDataset">Add Dataset</button>
+<button id="removeDataset">Remove Dataset</button>
+<button id="addData">Add Data</button>
+<button id="removeData">Remove Data</button>
+
+<button id='sensor 1'> Sensor 1 </button>
+<button id='sensor 2'> Sensor 2 </button>
+<button id='sensor 3'> Sensor 3 </button>
+{% endblock %}
 
 {% block scripts%}
 
 <script>
-    var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
     var config = {
         type: 'line',
         data: {
@@ -38,7 +39,7 @@
         },
         options: {
             responsive: true,
-            maintainAspectRatio: false, 
+            maintainAspectRatio: false,
             title: {
                 display: true,
                 //text: 'Chart.js Line Chart'
@@ -54,6 +55,7 @@
             scales: {
                 xAxes: [{
                     display: true,
+                    type: 'time',
                     scaleLabel: {
                         display: true,
                         labelString: 'Time'
@@ -70,68 +72,78 @@
         }
     };
 
-    window.onload = function() {
+    window.onload = function () {
         var ctx = document.getElementById('canvas').getContext('2d');
         window.myLine = new Chart(ctx, config);
+
+        var today = new Date();
+        var times = {{ times| safe
+    }};
+    var air_humidity = {{ air_humidity| safe}};
+    var air_temperature = {{ air_temperature| safe}};
+    var soil_humidity = {{ soil_humidity| safe}};
+
+    var x = [];
+    var air_u = [];
+    var air_t = [];
+    var soil_h = [];
+    //Loop for take data 
+    //x = times 
+    for (let i = 0; i < times.length; i++) {
+        year = String(times[i]).split(",")[0].split('-')[0];
+        month = String(times[i]).split(",")[0].split('-')[1];
+        day = String(times[i]).split(",")[0].split('-')[2];
+
+
+        hour = String(times[i]).split(",")[1].split(':')[0];
+        minute = String(times[i]).split(",")[1].split(':')[1];
+
+        var mydate = new Date(year, month - 1, day, hour, minute);
+
+        x[i] = mydate
+        air_u[i] = parseFloat(air_humidity[i]).toFixed(2);
+        air_t[i] = parseFloat(air_temperature[i]).toFixed(2);
+        soil_h[i] = parseFloat(soil_humidity[i]).toFixed(2);
+
+    }
+    config.data.labels = x;
+
+    //Air Humidity
+    var newDataset = {
+        label: 'Air Humidity',
+        backgroundColor: "blue",
+        borderColor: "blue",
+        data: air_u,
+        fill: false
+    }
+    config.data.datasets.push(newDataset);
+
+    //Air Temperature
+    var newDataset = {
+        label: 'Air Temperature',
+        backgroundColor: "orange",
+        borderColor: "orange",
+        data: air_t,
+        fill: false
+    }
+    config.data.datasets.push(newDataset);
+
+    //Soil Humidity
+
+    var newDataset = {
+        label: 'Soil Humidity',
+        backgroundColor: "green",
+        borderColor: "green",
+        data: soil_h,
+        fill: false
+    }
+
+    config.data.datasets.push(newDataset);
+    window.myLine.update();
+
+
     };
 
-    document.getElementById('randomizeData').addEventListener('click', function() {
-        config.data.datasets.forEach(function(dataset) {
-            dataset.data = dataset.data.map(function() {
-                return randomScalingFactor();
-            });
 
-        });
-
-        window.myLine.update();
-    });
-
-    var colorNames = Object.keys(window.chartColors);
-    document.getElementById('addDataset').addEventListener('click', function() {
-        var colorName = colorNames[config.data.datasets.length % colorNames.length];
-        var newColor = window.chartColors[colorName];
-        var newDataset = {
-            label: 'Dataset ' + config.data.datasets.length,
-            backgroundColor: newColor,
-            borderColor: newColor,
-            data: [],
-            fill: false
-        };
-
-        for (var index = 0; index < config.data.labels.length; ++index) {
-            newDataset.data.push(randomScalingFactor());
-        }
-
-        config.data.datasets.push(newDataset);
-        window.myLine.update();
-    });
-
-    document.getElementById('addData').addEventListener('click', function() {
-        if (config.data.datasets.length > 0) {
-            var month = MONTHS[config.data.labels.length % MONTHS.length];
-            config.data.labels.push(month);
-
-            config.data.datasets.forEach(function(dataset) {
-                dataset.data.push(randomScalingFactor());
-            });
-
-            window.myLine.update();
-        }
-    });
-
-    document.getElementById('removeDataset').addEventListener('click', function() {
-        config.data.datasets.splice(0, 1);
-        window.myLine.update();
-    });
-
-    document.getElementById('removeData').addEventListener('click', function() {
-        config.data.labels.splice(-1, 1); // remove the label first
-
-        config.data.datasets.forEach(function(dataset) {
-            dataset.data.pop();
-        });
-
-        window.myLine.update();
-    });
 </script>
 {% endblock %}
