@@ -11,6 +11,5 @@ class Plant(models.Model):
     misurated_time = models.DateTimeField()
 
     def get_time(self):
-
         # here we can format the time 
         return self.misurated_time

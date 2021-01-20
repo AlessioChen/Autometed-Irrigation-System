@@ -28,9 +28,14 @@
 <body>
 
   <nav class="navbar navbar-fixed-top">
+<<<<<<< HEAD
+    <div class="container">
+      <a class="navbar-brand" href="#"><b>Home</b></a>
+=======
     <div class="container" >
       <a class="navbar-brand" href="#"><b>Home</b></a>
       <a class="navbar-brand" href='graphics.html'> <b>Graphics</b></a>
+>>>>>>> 9bbd61e2650c4fd11b0ba975f031384c45b8fe54
     </div>
   </nav>
 
@@ -38,8 +43,14 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-md-3 col-xs-6">
-      <h3>SOIL HUMIDITY</h3>
+
+    <div class="col-md-3 col-xs-12 button-div vertical-center"> 
+      <button type="button" id="engine" class="btn btn-primary btn-lg btn-success ctr" onclick="turnEngine()">ENGINE ON</button>
+          <!--  VERTICAL LINE  <hr class="vr">   -->
+    </div>
+
+    <div class="col-md-3 col-xs-4">
+      <h3 class="text-center">SOIL HUMIDITY</h3>
       <canvas id="SHChart" width="400" height="400"></canvas>
       <script>
       var ctx = document.getElementById('SHChart').getContext('2d');
@@ -47,8 +58,9 @@
           type: 'doughnut',
           data: {
               datasets: [{
-                  label: '# of Votes',
-                  data: [60,40],backgroundColor: [
+                  label: 'Soil Humidity',
+                  data: [60,40],
+                  backgroundColor: [
                     'rgba(255, 204, 102, 1)',
                     'rgba(255, 204, 102, 0.2)'
                   ],
@@ -59,39 +71,17 @@
                   borderWidth: 1
               }]
           },
-          options: {}
+          options: {
+            cutoutPercentage: 65
+          }
       });
       </script>
 
     </div>
-    <div class="col-md-3 col-xs-6">
-      <h3>ENGINE ACTIVITY</h3>
-      <canvas id="EAChart" width="400" height="400"></canvas>
-      <script>
-      var ctx = document.getElementById('EAChart').getContext('2d');
-      var EAChart = new Chart(ctx, {
-          type: 'doughnut',
-          data: {
-              datasets: [{
-                  label: '# of Votes',
-                  data: [30,70],
-                  backgroundColor: [
-                    'rgba(100, 255, 100, 1)',
-                    'rgba(100, 255, 100, 0.2)'
-                  ],
-                  borderColor: [
-                    'rgba(100, 255, 100, 1)',
-                    'rgba(100, 255, 100, 0.2)'
-                  ],
-                  borderWidth: 1
-              }]
-          },
-          options: {}
-      });
-      </script>
-      </div>
-    <div class="col-md-3 col-xs-6">
-      <h3>AIR HUMIDITY</h3>
+
+
+    <div class="col-md-3 col-xs-4">
+      <h3 class="text-center">AIR HUMIDITY</h3>
       <canvas id="AHChart" width="400" height="400"></canvas>
       <script>
       var ctx = document.getElementById('AHChart').getContext('2d');
@@ -112,12 +102,15 @@
                   borderWidth: 1
               }]
           },
-          options: {}
+          options: {
+            cutoutPercentage: 65
+          }
       });
       </script>
     </div>
-    <div class="col-md-3 col-xs-6">
-      <h3>AIR TEMPERATURE</h3>
+
+    <div class="col-md-3 col-xs-4">
+      <h3 class="text-center">AIR TEMPERATURE</h3>
       <canvas id="ATChart" width="400" height="400"></canvas>
       <script>
       var ctx = document.getElementById('ATChart').getContext('2d');
@@ -138,7 +131,9 @@
                   borderWidth: 1
               }]
           },
-          options: {}
+          options: {
+            cutoutPercentage: 65
+          }
       });
       </script>
     </div>
@@ -201,6 +196,21 @@
 
 </div >
 
-
 </body>
 </html>
+
+
+
+<script>
+  function turnEngine(){
+    var elem = document.getElementById("engine");
+    if (elem.textContent=="ENGINE ON"){
+      elem.textContent = "ENGINE OFF";
+      elem.className="btn btn-primary btn-lg btn-danger";
+    }
+    else {
+      elem.textContent = "ENGINE ON";
+      elem.className="btn btn-primary btn-lg btn-success";
+    }
+  }
+</script>

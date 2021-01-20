@@ -3,11 +3,55 @@ body{
 }
 
 .navbar{
+<<<<<<< HEAD
+  background-color: rgb(230, 123, 0);
+=======
   background-color: rgb(230, 142, 0);
+>>>>>>> 9bbd61e2650c4fd11b0ba975f031384c45b8fe54
 }
 
 .navbar-brand{
   color: rgba(255, 179, 102, 1);
+}
 
+.flex-container{
+  display: flex;
+}
+
+.butdisp{
+  display: flex;
+  margin: auto;
+  text-align: center;  
+
+}
+
+/*  CSS for VERTICAL LINE
+.vr{ 
+  border:         none;
+  border-left:    1px solid hsla(200, 10%, 50%,100);
+  height:         100px;
+  width:          1px;       
+}
+*/
+
+.row{
+  position: relative;
+}
+
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  height: auto;  
+  top: 60%;
+}
+
+.ctr{
+  top: 60%;
+  left: 15%;
+}
+
+<<<<<<< HEAD
+=======
   
 
+>>>>>>> 9bbd61e2650c4fd11b0ba975f031384c45b8fe54
