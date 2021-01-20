@@ -1,15 +1,16 @@
+
 body{
   padding-top: 100px;
+
 }
 
 .navbar{
-  background-color: rgba(0, 230, 184, 1);
-}
-
-.center{
-  text-align: center;
+  background-color: rgb(230, 142, 0);
 }
 
 .navbar-brand{
-  color: rgba(255, 100, 0, 1);
+  color: rgba(255, 179, 102, 1);
+
+  
 }
+

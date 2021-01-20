@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 #from .scripts import motor
-from .scripts import SoilHumiditySensor
-from .scripts import AirSensor
+#from .scripts import SoilHumiditySensor
+#from .scripts import AirSensor
+from .models import Plant
 
 
 
@@ -11,8 +12,33 @@ def index(request):
     return render(request, 'plant/index.html', {})
 
 
+
+def graphics(request):
+    data = Plant.objects.all()
+    air_humidity =[]
+    soil_humidity =[]
+    air_temperature =[]
+    times = []
+    for d in data: 
+        air_humidity.append(d.air_humidity)
+        soil_humidity.append(d.soil_humidity)
+        air_temperature.append(d.air_temperature)
+        times.append(d.misurated_time.strftime("%Y-%m-%d,%H:%M:%S"))
+        #times.append(d.misurated_time)
+    
+    context = {
+        "air_humidity": air_humidity,
+        "soil_humidity": soil_humidity,
+        "air_temperature": air_temperature,
+        "times": times
+    }
+
+       
+    return render(request, 'plant/graphics.html', context)
+
+
 def update_motor(request):
-         # Get a session value, setting a default if it is not present ('off')
+    # Get a session value, setting a default if it is not present ('off')
     motor_status = request.session.get('motor_status','ON')
 
     if motor_status == 'OFF' :  #turn on the motor 
