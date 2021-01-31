@@ -16,8 +16,8 @@
 </div>
 <br>
 <br>
-<button id="randomizeData">Randomize Data</button>
-<button id="addDataset">Add Dataset</button>
+<button id="last_hour">LAST HOUR</button>
+<button id="last_month">LAST_MONTH </button>
 <button id="removeDataset">Remove Dataset</button>
 <button id="addData">Add Data</button>
 <button id="removeData">Remove Data</button>
@@ -30,7 +30,76 @@
 {% block scripts%}
 
 <script>
+    function update_graph( times,air_humidity, air_temperature,soil_humidity  ){
+        var x = [];
+        var air_u = [];
+        var air_t = [];
+        var soil_h = [];
+    //Loop for take data 
+    //x = times 
+    for (let i = 0; i < times.length; i++) {
+        year = String(times[i]).split(",")[0].split('-')[0];
+        month = String(times[i]).split(",")[0].split('-')[1];
+        day = String(times[i]).split(",")[0].split('-')[2];
 
+
+        hour = String(times[i]).split(",")[1].split(':')[0];
+        minute = String(times[i]).split(",")[1].split(':')[1];
+
+        var mydate = new Date(year, month - 1, day, hour, minute);
+     
+    
+        x[i] = mydate
+        air_u[i] = parseFloat(air_humidity[i]).toFixed(2);
+        air_t[i] = parseFloat(air_temperature[i]).toFixed(2);
+        soil_h[i] = parseFloat(soil_humidity[i]).toFixed(2);
+        
+
+    }
+    config.data.labels = x;
+
+    //Air Humidity
+    var AirHumidityDataSet = {
+        label: 'Air Humidity',
+        backgroundColor: "blue",
+        borderColor: "blue",
+        data: air_u,
+        fill: false
+    }
+    
+    //Air Temperature
+    var AirTemperatureDataSet = {
+        label: 'Air Temperature',
+        backgroundColor: "orange",
+        borderColor: "orange",
+        data: air_t,
+        fill: false
+    }
+   
+    //Soil Humidity
+    var SoilHumidityDataSet = {
+        label: 'Soil Humidity',
+        backgroundColor: "green",
+        borderColor: "green",
+        data: soil_h,
+        fill: false
+    }
+
+
+
+    //Graph update 
+    config.data.datasets =[];
+    config.data.datasets.push(AirHumidityDataSet);
+    config.data.datasets.push(AirTemperatureDataSet);
+    config.data.datasets.push(SoilHumidityDataSet);
+    window.myGraph.update();
+
+    }
+</script>
+
+<script>
+
+    //Graph configurations 
     var config = {
         type: 'line',
         data: {
@@ -58,8 +127,11 @@
                     type: 'time',
                     scaleLabel: {
                         display: true,
-                        labelString: 'Time'
-                    }
+                        labelString: 'Time',
+                    },
+                    time: {
+                    },
+                    distribution: 'series',
                 }],
                 yAxes: [{
                     display: true,
@@ -74,76 +146,63 @@
 
     window.onload = function () {
         var ctx = document.getElementById('canvas').getContext('2d');
-        window.myLine = new Chart(ctx, config);
+        window.myGraph = new Chart(ctx, config);
 
-        var today = new Date();
-        var times = {{ times| safe
-    }};
-    var air_humidity = {{ air_humidity| safe}};
-    var air_temperature = {{ air_temperature| safe}};
-    var soil_humidity = {{ soil_humidity| safe}};
+    
+        var times = {{ times| safe}};
+        var air_humidity = {{ air_humidity| safe}};
+        var air_temperature = {{ air_temperature| safe}};
+        var soil_humidity = {{ soil_humidity| safe}};
 
-    var x = [];
-    var air_u = [];
-    var air_t = [];
-    var soil_h = [];
-    //Loop for take data 
-    //x = times 
-    for (let i = 0; i < times.length; i++) {
-        year = String(times[i]).split(",")[0].split('-')[0];
-        month = String(times[i]).split(",")[0].split('-')[1];
-        day = String(times[i]).split(",")[0].split('-')[2];
-
-
-        hour = String(times[i]).split(",")[1].split(':')[0];
-        minute = String(times[i]).split(",")[1].split(':')[1];
-
-        var mydate = new Date(year, month - 1, day, hour, minute);
-
-        x[i] = mydate
-        air_u[i] = parseFloat(air_humidity[i]).toFixed(2);
-        air_t[i] = parseFloat(air_temperature[i]).toFixed(2);
-        soil_h[i] = parseFloat(soil_humidity[i]).toFixed(2);
-
-    }
-    config.data.labels = x;
-
-    //Air Humidity
-    var newDataset = {
-        label: 'Air Humidity',
-        backgroundColor: "blue",
-        borderColor: "blue",
-        data: air_u,
-        fill: false
-    }
-    config.data.datasets.push(newDataset);
-
-    //Air Temperature
-    var newDataset = {
-        label: 'Air Temperature',
-        backgroundColor: "orange",
-        borderColor: "orange",
-        data: air_t,
-        fill: false
-    }
-    config.data.datasets.push(newDataset);
-
-    //Soil Humidity
-
-    var newDataset = {
-        label: 'Soil Humidity',
-        backgroundColor: "green",
-        borderColor: "green",
-        data: soil_h,
-        fill: false
-    }
-
-    config.data.datasets.push(newDataset);
-    window.myLine.update();
-
-
+      
+        update_graph(times,air_humidity,  air_temperature, soil_humidity);
     };
 
-
+  
 </script>
+
+
+<script>
+
+    $("#last_hour").click(function(){
+        $.ajax({
+            url: "{% url 'update_graph' %}" ,
+            type : "POST",
+            data: {type: "last_hour" , 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+    
+
+            success: function(response) {
+    
+                var times = response["times"];
+
+                var air_humidity =  response["air_humidity"];
+                var air_temperature = response["air_temperature"];
+                var soil_humidity = response["soil_humidity"];
+
+                update_graph(times,air_humidity,  air_temperature, soil_humidity);
+            }
+        });
+
+    });
+
+
+    $("#last_month").click(function(){
+        $.ajax({
+            url: "{% url 'update_graph' %}",
+            type : "POST",
+            data: {type: "last_month" , 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+            success: function(response) {
+    
+                var times = response["times"];
+                var air_humidity =  response["air_humidity"];
+                var air_temperature = response["air_temperature"];
+                var soil_humidity = response["soil_humidity"];
+
+                update_graph(times,air_humidity,  air_temperature, soil_humidity);
+            }
+        });
+
+    });
+</script>
+
 {% endblock %}
