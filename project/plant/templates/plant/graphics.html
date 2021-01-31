@@ -2,7 +2,6 @@
 
 {% block content %}
 
-
 <style>
     canvas {
         -moz-user-select: none;
@@ -11,20 +10,32 @@
     }
 </style>
 
-<div style="width:60%; height: 60%;">
-    <canvas id="canvas"></canvas>
-</div>
-<br>
-<br>
-<button id="last_hour">LAST HOUR</button>
-<button id="last_month">LAST_MONTH </button>
-<button id="removeDataset">Remove Dataset</button>
-<button id="addData">Add Data</button>
-<button id="removeData">Remove Data</button>
 
-<button id='sensor 1'> Sensor 1 </button>
-<button id='sensor 2'> Sensor 2 </button>
-<button id='sensor 3'> Sensor 3 </button>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" style="height: 80%;"> 
+            <canvas id="canvas"></canvas>
+    
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-12"> 
+            <button id="last_hour">LAST HOUR</button>
+            <button id="last_month">LAST_MONTH </button>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+
 {% endblock %}
 
 {% block scripts%}

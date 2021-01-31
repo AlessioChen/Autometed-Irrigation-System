@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-#from .scripts import motor
+from .scripts import Motor
 from .scripts import SoilHumiditySensor
 from .scripts import AirSensor
 from .models import Plant
@@ -54,15 +54,14 @@ def graphics(request):
 
 
 def update_motor(request):
-    # Get a session value, setting a default if it is not present ('off')
-    motor_status = request.session.get('motor_status','ON')
-
+    motor_status = request.session.get('motor_status','OFF')
+    print(motor_status)
     if motor_status == 'OFF' :  #turn on the motor 
         request.session['motor_status'] = 'ON'
-        #motor.turn_on()
+        Motor.turn_on()
     else: 
         request.session['motor_status'] = 'OFF'
-        #motor.turn_off()
+        Motor.turn_off()
 
     
     context = {
@@ -89,7 +88,7 @@ def update_sensors(request):
             'air_temperature' : air_temperature
         }
         
-        print(context)
+        #print(context)
         
         return JsonResponse(context, status = 200)
 

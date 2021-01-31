@@ -1,21 +1,62 @@
-{% extends 'plant/base.html' %} 
-{% block content %} 
+{% extends 'plant/base.html' %}
+{% block content %}
 
 <div class="container">
     <div class="row">
+
+        <div class="col-md-12 col-md-offset-5 col-xs-12 col-xs-offset-4 button-div vertical-center">
+            <button type="button" id="engine" class="btn btn-primary btn-lg btn-danger>
+                onclick="turnEngine()">ENGINE OFF</button>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
         {% include 'plant/liveMisurations.html' %}
     </div>
-
+    
     <hr>
-    <div class = "row">
+    <div class="row">
         <div class="col-md-12">
             {% include 'plant/carosell.html' %}
         </div>
-       
+
     </div>
 
-    
+
 </div>
+
+
+<script>
+
+    //  Engine Button script
+    $("#engine").click(function(){
+        $.ajax({
+            url: "{% url 'motor_update' %}" ,
+            type : "GET",
+            data: {},
+    
+            success: function(response) {
+                turnEngine(); 
+
+            }
+        });
+
+    });
+
+
+    function turnEngine() {
+        var elem = document.getElementById("engine");
+        if (elem.textContent == "ENGINE ON") {
+            elem.textContent = "ENGINE OFF";
+            elem.className = "btn btn-primary btn-lg btn-danger";
+        }
+        else {
+            elem.textContent = "ENGINE ON";
+            elem.className = "btn btn-primary btn-lg btn-success";
+        }
+    }
+</script>
+
 
 
 {% endblock %}
