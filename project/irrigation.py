@@ -15,15 +15,16 @@ application = get_wsgi_application()
 
 while True: 
     m.turn_off()
-    if SoilHumiditySensor.get_value() < 70: 
+    if SoilHumiditySensor.get_value() < 20: 
         for i in range(0,3):
             m.turn_on()
             time.sleep(0.5)
             m.turn_off()
             time.sleep(1)
-            print(SoilHumiditySensor.get_value())
-    print(SoilHumiditySensor.get_value())
     m.turn_off()
+    print(SoilHumiditySensor.get_value())
+    
+    time.sleep(60)
 
 
 

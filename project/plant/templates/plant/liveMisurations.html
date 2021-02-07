@@ -63,7 +63,7 @@
     data: {
       datasets: [{
         label: 'Soil Humidity',
-        data: [60, 40],
+        data: [],
         backgroundColor: [
           'rgba(5, 56, 107, 1)',
           'rgba(5, 56, 107, 0.2)'
@@ -79,24 +79,28 @@
       cutoutPercentage: 65,
       elements: {
         center: {
-          text: '60%',
+          text: '',
           color: '#05386B', // Default is #000000
           fontStyle: 'Arial', // Default is Arial
           sidePadding: 20, // Default is 20 (as a percentage)
           minFontSize: 25, // Default is 20 (in px), set to false and text will not wrap.
           lineHeight: 25 // Default is 25 (in px), used for when text wraps
         }
-      }
+      }, 
+      tooltips: {
+                enabled: false, 
+            }
     }
   };
+  
 
 
   var configAH = {
     type: 'doughnut',
     data: {
       datasets: [{
-        label: '# of Votes',
-        data: [40, 60],
+        label: 'Air Humidity',
+        data: [],
         backgroundColor: [
           'rgba(5, 56, 107, 1)',
           'rgba(5, 56, 107, 0.2)'
@@ -112,14 +116,17 @@
       cutoutPercentage: 65,
       elements: {
         center: {
-          text: '40%',
+          text: '',
           color: '#05386B', // Default is #000000
           fontStyle: 'Arial', // Default is Arial
           sidePadding: 20, // Default is 20 (as a percentage)
           minFontSize: 25, // Default is 20 (in px), set to false and text will not wrap.
           lineHeight: 25 // Default is 25 (in px), used for when text wraps
         }
-      }
+      },
+      tooltips: {
+                enabled: false, 
+            }
     }
   };
 
@@ -128,8 +135,8 @@
     type: 'doughnut',
     data: {
       datasets: [{
-        label: '# of Votes',
-        data: [20, 80],
+        label: 'Air Temperature',
+        data: [],
         backgroundColor: [
           'rgba(5, 56, 107, 1)',
           'rgba(5, 56, 107, 0.2)'
@@ -145,14 +152,17 @@
       cutoutPercentage: 65,
       elements: {
         center: {
-          text: '20%',
+          text: '',
           color: '#05386B', // Default is #000000
           fontStyle: 'Arial', // Default is Arial
           sidePadding: 20, // Default is 20 (as a percentage)
           minFontSize: 25, // Default is 20 (in px), set to false and text will not wrap.
           lineHeight: 25 // Default is 25 (in px), used for when text wraps
         }
-      }
+      },
+      tooltips: {
+                enabled: false, 
+            }
     }
   };
 
