@@ -3,9 +3,11 @@ from django.http import JsonResponse
 from .scripts import Motor
 from .scripts import SoilHumiditySensor
 from .scripts import AirSensor
-from .models import Plant
-from datetime import datetime, timedelta, time
+from .models import Plant, Motor as M 
+from datetime import datetime, timedelta
+import time
 from django.utils import timezone
+
 
 
 
@@ -13,6 +15,7 @@ from django.utils import timezone
 def set_context(start_date, end_date):
 
     data = Plant.objects.filter(misurated_time__range=[start_date, end_date])
+
     air_humidity =[]
     soil_humidity =[]
     air_temperature =[]
@@ -38,7 +41,9 @@ def index(request):
 
     return render(request, 'plant/index.html', {})
 
+def gallery(request):
 
+    return render(request, 'plant/gallery.html', {})
 
 
 def graphics(request):
@@ -54,18 +59,40 @@ def graphics(request):
 
 
 def update_motor(request):
-    motor_status = request.session.get('motor_status','OFF')
-    print(motor_status)
-    if motor_status == 'OFF' :  #turn on the motor 
-        request.session['motor_status'] = 'ON'
-        Motor.turn_on()
-    else: 
-        request.session['motor_status'] = 'OFF'
-        Motor.turn_off()
+    o = M.objects.all()[0]
+  
+    if request.is_ajax: 
+        #spegni
+        if o.status == False:
+            o.status = True
+            r = 'ON'
+            Motor.turn_off()
+        #Accendi
+        else: 
+            o.status = False
+            r = 'OFF'
+            Motor.turn_on()
 
+
+        context = {
+            'motor_status': r,
+        }
+
+        print(r)
+
+        o.save()
     
+    return JsonResponse(context, status =200)
+
+def chek_motor_status(request):
+    o = M.objects.all()[0]
+    if o.status == False: 
+        r = 'OFF' 
+    else: 
+        r = 'ON'
+
     context = {
-        'motor_status': motor_status,
+        'motor_status': r,
     }
 
 
@@ -75,12 +102,13 @@ def update_motor(request):
 
 
 def update_sensors(request):
-    
+    o = M.objects.all()[0]
     if request.is_ajax:
         air_humidity = AirSensor.get_air_humidity()
         soil_umidity = SoilHumiditySensor.get_value()
         air_temperature = AirSensor.get_air_temperature()
 
+       
 
         context = {
             'air_humidity': air_humidity,
@@ -104,14 +132,25 @@ def update_graph(request):
         t = request.POST['type']
         
         if t == "last_hour": 
-            hour_later = timezone.now().replace(minute=0, second=0, microsecond=0)
-            now = hour_later - timedelta(hours=1)
-            context = set_context(now, hour_later)
+            hour_earlier = timezone.now().replace(minute=0, second=0, microsecond=0)
+            now = hour_earlier + timedelta(hours=1)
+          
+            context = set_context(hour_earlier, now)
         if t == "last_month":
             today = datetime.now().date() + timedelta(days =1)
             one_month_earlier = today - timedelta(days=30)
             context = set_context(one_month_earlier, today)
-        
+        if t == "last_day":
+            today = datetime.now().date() + timedelta(days =1)
+            earlier  = today - timedelta(days=1)
+
+            context = set_context(earlier, today)
+            print(context)
+        if t == "last_week":
+            today = datetime.now().date() + timedelta(days =1)
+            earlier  = today - timedelta(days=7)
+            context = set_context(earlier, today)
+            
         return JsonResponse(context, status = 200)
 
 

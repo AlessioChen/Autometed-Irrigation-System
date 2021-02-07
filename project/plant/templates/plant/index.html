@@ -6,21 +6,24 @@
 
         <div class="col-md-12 col-md-offset-5 col-xs-12 col-xs-offset-4 button-div vertical-center">
             <button type="button" id="engine" class="btn btn-primary btn-lg btn-danger>
-                onclick="turnEngine()">ENGINE OFF</button>
+                onclick=" turnEngine()"></button>
         </div>
     </div>
-    <hr>
+
     <div class="row">
         {% include 'plant/liveMisurations.html' %}
     </div>
-    
-    <hr>
-    <div class="row">
-        <div class="col-md-12">
-            {% include 'plant/carosell.html' %}
-        </div>
 
+
+
+    <div class="row weather">
+        <a class="weatherwidget-io" href="https://forecast7.com/en/43d7711d25/metropolitan-city-of-florence/"
+            data-label_1="FIRENZE" data-label_2="WEATHER" data-theme="original">FIRENZE WEATHER</a>
+        <script>
+            !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'weatherwidget-io-js');
+        </script>
     </div>
+   
 
 
 </div>
@@ -28,15 +31,24 @@
 
 <script>
 
-    //  Engine Button script
-    $("#engine").click(function(){
+    $(document).ready(function () {
         $.ajax({
-            url: "{% url 'motor_update' %}" ,
-            type : "GET",
-            data: {},
-    
-            success: function(response) {
-                turnEngine(); 
+            url: "{% url 'motor_check' %}",
+            success: function (response) {
+                turnEngine(response);
+
+            }
+        });
+    });
+
+
+
+    //  Engine Button script
+    $("#engine").click(function () {
+        $.ajax({
+            url: "{% url 'motor_update' %}",
+            success: function (response) {
+                turnEngine(response);
 
             }
         });
@@ -44,13 +56,16 @@
     });
 
 
-    function turnEngine() {
+    function turnEngine(response) {
         var elem = document.getElementById("engine");
-        if (elem.textContent == "ENGINE ON") {
+        console.log(response.motor_status);
+        if (response.motor_status == "ON") {
             elem.textContent = "ENGINE OFF";
             elem.className = "btn btn-primary btn-lg btn-danger";
+
         }
         else {
+          
             elem.textContent = "ENGINE ON";
             elem.className = "btn btn-primary btn-lg btn-success";
         }

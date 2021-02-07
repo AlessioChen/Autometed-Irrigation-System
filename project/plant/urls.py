@@ -23,6 +23,9 @@ urlpatterns = [
     path('update/', views.update_sensors, name = 'update_sensors'),
     path('update2/', views.update_motor, name ='motor_update'),
     path('graphics/', views.graphics, name = 'graphics'),
+    path('gallery/', views.gallery, name = 'gallery'),
     path('update_graph/', views.update_graph, name='update_graph'),
+    path('upadate3/', views.chek_motor_status, name ='motor_check'),
+
 
 ]

@@ -13,3 +13,7 @@ class Plant(models.Model):
     def get_time(self):
         # here we can format the time 
         return self.misurated_time
+
+class Motor(models.Model):
+    status = models.BooleanField(default=False)
+

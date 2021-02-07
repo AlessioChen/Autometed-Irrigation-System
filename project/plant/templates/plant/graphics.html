@@ -25,6 +25,8 @@
     <div class="row">
         <div class="col-md-12"> 
             <button id="last_hour">LAST HOUR</button>
+            <button id="last_day">LAST DAY</button>
+            <button id="last_week">LAST WEEK</button>
             <button id="last_month">LAST_MONTH </button>
         </div>
 
@@ -186,6 +188,42 @@
     
                 var times = response["times"];
 
+                var air_humidity =  response["air_humidity"];
+                var air_temperature = response["air_temperature"];
+                var soil_humidity = response["soil_humidity"];
+
+                update_graph(times,air_humidity,  air_temperature, soil_humidity);
+            }
+        });
+
+    });
+
+    $("#last_day").click(function(){
+        $.ajax({
+            url: "{% url 'update_graph' %}",
+            type : "POST",
+            data: {type: "last_day" , 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+            success: function(response) {
+    
+                var times = response["times"];
+                var air_humidity =  response["air_humidity"];
+                var air_temperature = response["air_temperature"];
+                var soil_humidity = response["soil_humidity"];
+
+                update_graph(times,air_humidity,  air_temperature, soil_humidity);
+            }
+        });
+
+    });
+
+    $("#last_week").click(function(){
+        $.ajax({
+            url: "{% url 'update_graph' %}",
+            type : "POST",
+            data: {type: "last_week" , 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+            success: function(response) {
+    
+                var times = response["times"];
                 var air_humidity =  response["air_humidity"];
                 var air_temperature = response["air_temperature"];
                 var soil_humidity = response["soil_humidity"];
