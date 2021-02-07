@@ -26,10 +26,6 @@ while True:
     osservation.save()
     print("SAVE")
 
-    
-  
-
-
     time.sleep(60)
 
    
