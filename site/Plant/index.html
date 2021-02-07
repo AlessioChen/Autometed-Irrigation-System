@@ -1,250 +1,234 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Leaf</title>
-    <!-------------------------------------- START OUR CSS'S ANS JS'S --------------------------------------------------------------->
-    <link rel="stylesheet" href="style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-------------------------------------- END OUR CSS'S ANS JS'S--------------------------------------------------------------->
+
+<head>
+  <meta charset="UTF-8">
+  <title>Leaf</title>
+  <!-------------------------------------- START OUR CSS'S ANS JS'S --------------------------------------------------------------->
+  <link rel="stylesheet" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-------------------------------------- END OUR CSS'S ANS JS'S--------------------------------------------------------------->
 
 
-    <!---------------------------------------------------------START BOOTSTRAP V3.3.7------------------->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!---------------------------------------------------------START BOOTSTRAP V3.3.7------------------->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+    integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <!---------------------------------------------------------END BOOTSTRAP V3.3.7------------------->
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+  <!---------------------------------------------------------END BOOTSTRAP V3.3.7------------------->
 
 
-    <!---------------------------------------------START CHART JS ---------------------------------------->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <!---------------------------------------------END CHART JS ---------------------------------------->
+  <!---------------------------------------------START CHART JS ---------------------------------------->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <!---------------------------------------------END CHART JS ---------------------------------------->
 </head>
+
 <body>
 
-  <nav class="navbar navbar-fixed-top">
-    <div class="container" >
-      <a class="navbar-brand" href="#"><b>Home</b></a>
-      <a class="navbar-brand" href='graphics.html'> <b>Graphics</b></a>
+  <nav>
+    <div class="topnav">
+      <a class="active" href="index.html">Home</a>
+      <a href='graphics.html'>History</a>
+      <a href='gallery.html'>Gallery</a>
+
+      <div class = "clock"></div>
+
     </div>
   </nav>
 
 
-<div class="container">
+  <div class="container">
 
-  <div class="row">
+    <div class="row">
 
-    <div class="col-md-12 col-md-offset-5 col-xs-12 col-xs-offset-4 button-div vertical-center"> 
-      <button type="button" id="engine" class="btn btn-primary btn-lg btn-success ctr" onclick="turnEngine()">ENGINE ON</button>
-    </div>
-  </div>
-
-  <hr>
-
-  <div class="row">  
-    
-    <div class="col-md-4 col-xs-4">
-      <h3 class="text-center">SOIL HUMIDITY</h3>
-      <canvas id="SHChart" width="400" height="400"></canvas>
+      <div class="col-md-12 col-md-offset-5 col-xs-12 col-xs-offset-4 button-div vertical-center">
+        <button type="button" id="engine" class="btn btn-primary btn-lg btn-success ctr" onclick="turnEngine()">ENGINE
+          ON</button>
+      </div>
     </div>
 
-    <div class="col-md-4 col-xs-4">
-      <h3 class="text-center">AIR HUMIDITY</h3>
-      <canvas id="AHChart" width="400" height="400"></canvas>
-    </div>
+    <div class="row">
 
-    <div class="col-md-4 col-xs-4">
-      <h3 class="text-center">AIR TEMPERATURE</h3>
-      <canvas id="ATChart" width="400" height="400"></canvas>
-    </div>
-  </div>
-
-  <hr>
-
-  <div class="row">
-    <div class="col-md-12">
-      
-      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-          <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-          <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-          <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-        </ol>
-      
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner" role="listbox">
-          <div class="item active">
-            <img src="images/leaf.jpg" alt="...">
-            <div class="carousel-caption">
-              <h3>Leaf</h3>
-              <p>foglie verdi</p>
-            </div>
-          </div>
-          <div class="item">
-            <img src="images/mountain.jpg" alt="...">
-            <div class="carousel-caption">
-              <h3>Mountain</h3>
-              <p>montagne innevate</p>
-            </div>
-          </div>
-
-          <div class="item">
-            <img src="images/wood.jpg" alt="...">
-            <div class="carousel-caption">
-              <h3>Wood</h3>
-              <p>paesaggio alpino</p>
-            </div>
-          </div>
-        </div>
-      
-        <!-- Controls -->
-        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
+      <div class="col-md-4 col-xs-4">
+        <h3 class="text-center">SOIL HUMIDITY</h3>
+        <canvas id="SHChart" width="400" height="400"></canvas>
       </div>
 
+      <div class="col-md-4 col-xs-4">
+        <h3 class="text-center">AIR HUMIDITY</h3>
+        <canvas id="AHChart" width="400" height="400"></canvas>
+      </div>
+
+      <div class="col-md-4 col-xs-4">
+        <h3 class="text-center">AIR TEMPERATURE</h3>
+        <canvas id="ATChart" width="400" height="400"></canvas>
+      </div>
     </div>
+
+    <div class="row weather">
+      <a class="weatherwidget-io" href="https://forecast7.com/en/43d7711d25/metropolitan-city-of-florence/"
+        data-label_1="FIRENZE" data-label_2="WEATHER" data-theme="original">FIRENZE WEATHER</a>
+      <script>
+        !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = 'https://weatherwidget.io/js/widget.min.js'; fjs.parentNode.insertBefore(js, fjs); } }(document, 'script', 'weatherwidget-io-js');
+      </script>
+    </div>
+
   </div>
 
-  <hr>
-
-
-
-</div >
-
 </body>
+
 </html>
 
 
 <script>
 
-  
-//  Engine Button script
-  function turnEngine(){
+  function clock() {// We create a new Date object and assign it to a variable called "time".
+  var time = new Date(),
+      
+      // Access the "getHours" method on the Date object with the dot accessor.
+      hours = time.getHours(),
+      
+      // Access the "getMinutes" method with the dot accessor.
+      minutes = time.getMinutes(),
+      
+      
+      seconds = time.getSeconds();
+
+  document.querySelectorAll('.clock')[0].innerHTML = harold(hours) + ":" + harold(minutes) + ":" + harold(seconds);
+    
+    function harold(standIn) {
+      if (standIn < 10) {
+        standIn = '0' + standIn
+      }
+      return standIn;
+    }
+  }
+  setInterval(clock, 1000);
+
+
+  //  Engine Button script
+  function turnEngine() {
     var elem = document.getElementById("engine");
-    if (elem.textContent=="ENGINE ON"){
+    if (elem.textContent == "ENGINE ON") {
       elem.textContent = "ENGINE OFF";
-      elem.className="btn btn-primary btn-lg btn-danger";
+      elem.className = "btn btn-primary btn-lg btn-danger";
     }
     else {
       elem.textContent = "ENGINE ON";
-      elem.className="btn btn-primary btn-lg btn-success";
+      elem.className = "btn btn-primary btn-lg btn-success";
     }
   }
 
 
   var configSH = {
-      type: 'doughnut',
-      data: {
-          datasets: [{
-              label: 'Soil Humidity',
-              data: [60,40],
-              backgroundColor: [
-                'rgba(255, 204, 102, 1)',
-                'rgba(255, 204, 102, 0.2)'
-              ],
-              borderColor: [
-                'rgba(255, 204, 102, 1)',
-                'rgba(255, 204, 102, 0.2)'
-              ],
-              borderWidth: 1
-          }]
-      },
-      options: {
-        cutoutPercentage: 65,
-        elements: {
-          center: {
-            text: '60%',
-            color: 'rgba(255, 204, 102, 1)', // Default is #000000
-            fontStyle: 'Arial', // Default is Arial
-            sidePadding: 20, // Default is 20 (as a percentage)
-            minFontSize: 25, // Default is 20 (in px), set to false and text will not wrap.
-            lineHeight: 25 // Default is 25 (in px), used for when text wraps
-          }
+    type: 'doughnut',
+    data: {
+      datasets: [{
+        label: 'Soil Humidity',
+        data: [60, 40],
+        backgroundColor: [
+          'rgba(5, 56, 107, 1)',
+          'rgba(5, 56, 107, 0.2)'
+        ],
+        borderColor: [
+          'rgba(5, 56, 107, 1)',
+          'rgba(5, 56, 107, 0.2)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      cutoutPercentage: 65,
+      elements: {
+        center: {
+          text: '60%',
+          color: '#05386B', // Default is #000000
+          fontStyle: 'Arial', // Default is Arial
+          sidePadding: 20, // Default is 20 (as a percentage)
+          minFontSize: 25, // Default is 20 (in px), set to false and text will not wrap.
+          lineHeight: 25 // Default is 25 (in px), used for when text wraps
         }
       }
+    }
   };
 
 
   var configAH = {
-      type: 'doughnut',
-      data: {
-          datasets: [{
-              label: '# of Votes',
-              data: [40,60],
-              backgroundColor: [
-                'rgba(102, 102, 255, 1)',
-                'rgba(102, 102, 255, 0.2)'
-              ],
-              borderColor: [
-                'rgba(102, 102, 255, 1)',
-                'rgba(102, 102, 255, 0.2)'
-              ],
-              borderWidth: 1
-          }]
-      },
-      options: {
-        cutoutPercentage: 65,
-        elements: {
-          center: {
-            text: '40%',
-            color: 'rgba(102, 102, 255, 1)', // Default is #000000
-            fontStyle: 'Arial', // Default is Arial
-            sidePadding: 20, // Default is 20 (as a percentage)
-            minFontSize: 25, // Default is 20 (in px), set to false and text will not wrap.
-            lineHeight: 25 // Default is 25 (in px), used for when text wraps
-          }
+    type: 'doughnut',
+    data: {
+      datasets: [{
+        label: '# of Votes',
+        data: [40, 60],
+        backgroundColor: [
+          'rgba(5, 56, 107, 1)',
+          'rgba(5, 56, 107, 0.2)'
+        ],
+        borderColor: [
+          'rgba(5, 56, 107, 1)',
+          'rgba(5, 56, 107, 0.2)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      cutoutPercentage: 65,
+      elements: {
+        center: {
+          text: '40%',
+          color: '#05386B', // Default is #000000
+          fontStyle: 'Arial', // Default is Arial
+          sidePadding: 20, // Default is 20 (as a percentage)
+          minFontSize: 25, // Default is 20 (in px), set to false and text will not wrap.
+          lineHeight: 25 // Default is 25 (in px), used for when text wraps
         }
       }
+    }
   };
 
 
   var configAT = {
-      type: 'doughnut',
-      data: {
-          datasets: [{
-              label: '# of Votes',
-              data: [20,80],
-              backgroundColor: [
-                'rgba(255, 102, 102, 1)',
-                'rgba(255, 102, 102, 0.2)'
-              ],
-              borderColor: [
-                'rgba(255, 102, 102, 1)',
-                'rgba(255, 102, 102, 0.2)'
-              ],
-              borderWidth: 1
-          }]
-      },
-      options: {
-        cutoutPercentage: 65,
-        elements: {
-          center: {
-            text: '20%',
-            color: 'rgba(255, 102, 102, 1)', // Default is #000000
-            fontStyle: 'Arial', // Default is Arial
-            sidePadding: 20, // Default is 20 (as a percentage)
-            minFontSize: 25, // Default is 20 (in px), set to false and text will not wrap.
-            lineHeight: 25 // Default is 25 (in px), used for when text wraps
-          }
+    type: 'doughnut',
+    data: {
+      datasets: [{
+        label: '# of Votes',
+        data: [20, 80],
+        backgroundColor: [
+          'rgba(5, 56, 107, 1)',
+          'rgba(5, 56, 107, 0.2)'
+        ],
+        borderColor: [
+          'rgba(5, 56, 107, 1)',
+          'rgba(5, 56, 107, 0.2)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      cutoutPercentage: 65,
+      elements: {
+        center: {
+          text: '20%',
+          color: '#05386B', // Default is #000000
+          fontStyle: 'Arial', // Default is Arial
+          sidePadding: 20, // Default is 20 (as a percentage)
+          minFontSize: 25, // Default is 20 (in px), set to false and text will not wrap.
+          lineHeight: 25 // Default is 25 (in px), used for when text wraps
         }
       }
+    }
   };
 
 
   Chart.pluginService.register({
-    beforeDraw: function(chart) {
+    beforeDraw: function (chart) {
       if (chart.config.options.elements.center) {
         // Get ctx from string
         var ctx = chart.chart.ctx;
@@ -327,14 +311,14 @@
     }
   });
 
-  
-var ctx = document.getElementById('SHChart').getContext('2d');
-var SHChart = new Chart(ctx, configSH);
 
-var ctx = document.getElementById('AHChart').getContext('2d');
-var AHChart = new Chart(ctx, configAH);
+  var ctx = document.getElementById('SHChart').getContext('2d');
+  var SHChart = new Chart(ctx, configSH);
 
-var ctx = document.getElementById('ATChart').getContext('2d');
-var ATChart = new Chart(ctx, configAT);
+  var ctx = document.getElementById('AHChart').getContext('2d');
+  var AHChart = new Chart(ctx, configAH);
+
+  var ctx = document.getElementById('ATChart').getContext('2d');
+  var ATChart = new Chart(ctx, configAT);
 
 </script>
