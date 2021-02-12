@@ -3,10 +3,8 @@ body{
   background: #fbfbfb !important;
   width: 100%;
   margin: auto;
-
-  /*background-image: url('images/wood.jpg');
-  background-size: cover;*/
 }
+
 .clock {
   font-size: 1.8em;
   text-align:  right;
@@ -65,9 +63,9 @@ h3 .text-center{
   margin-top: 20%;
   margin-bottom: 10%;
 }
+
 .vertical-center {
   margin: 0;
-  position: absolute;
   height: auto;  
   top: 60%;
   max-width: fit-content;
