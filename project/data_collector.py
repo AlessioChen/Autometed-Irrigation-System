@@ -12,10 +12,10 @@ application = get_wsgi_application()
 #----------------- --------------------------------------------------------------------#
 
 from plant.models import *
-osservation = Plant()
 
 # Every minute it read the sensord and add data into database 
 
+osservation = Plant()
 while True: 
     osservation = Plant()
     osservation.soil_humidity = SoilHumiditySensor.get_value()
