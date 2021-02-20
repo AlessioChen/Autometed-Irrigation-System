@@ -12,10 +12,10 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
 application = get_wsgi_application()
 #----------------- --------------------------------------------------------------------#
 
-
+MAX_HUMIDITY = 20
 while True: 
     m.turn_off()
-    if SoilHumiditySensor.get_value() < 20: 
+    if SoilHumiditySensor.get_value() < MAX_HUMIDITY : 
         for i in range(0,3):
             m.turn_on()
             time.sleep(0.5)
