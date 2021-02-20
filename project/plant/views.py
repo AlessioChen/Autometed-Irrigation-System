@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-#from .scripts import Motor
-#from .scripts import SoilHumiditySensor
-#from .scripts import AirSensor
+from .scripts import Motor
+from .scripts import SoilHumiditySensor
+from .scripts import AirSensor
 from .models import Plant, Motor as M 
 from datetime import datetime, timedelta
 import time
